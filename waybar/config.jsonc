@@ -1,0 +1,134 @@
+
+{
+    "height": 34,
+    "spacing": 1,
+
+
+
+
+    "modules-left": [
+        "hyprland/workspaces",
+		"network",
+		"bluetooth",
+		"tray"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+    	"custom/updates",
+        "pulseaudio",
+        "backlight",
+        "battery"
+    ],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "active": "",
+            "default": ""
+        },
+        "persistent-workspaces": {
+            "*": 5,
+        }
+    },
+     "custom/updates": {
+        "format": "<span size='large'>󰇚 {}</span>",
+        "interval": 60,                     // every two hours
+        "exec": "i=$(checkupdates); echo \"$i\" |wc -l; echo \"$i\" |column -t |tr '\n' '\r'",       // # of updates and tooltip details
+        "exec-if": "exit 0",                  // always run; consider advanced run conditions
+        "on-click": "kitty -e paru -Syyuu", // update system
+        "signal": 8
+    },
+    "hyprland/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "hyprland/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 10
+    },
+    "clock": {
+		"format": "{:%Y-%m-%d - %H:%M }",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 40,
+            "bluetooth":30,
+            "critical": 15
+        },
+        "format": "{time} {capacity}% {icon}",
+        "format-full": "{time}  {capacity}% {icon}",
+        "format-charging": "{time}  {capacity}% ",
+        "format-plugged": "{time}  {capacity}% ",
+        "format-alt": "{time} {icon}",
+        "format-icons": ["", "", "", "", ""]
+    },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "  ",
+        "performance": "  ",
+        "balanced": "   ",
+        "power-saver": " 󰁹 "
+      }
+    },
+    "network": {
+	"interfacet":"wlan0",
+        //"format-wifi": "<span size='medium'>󰤨</span> ",
+        "format-wifi": "",
+        "format-ethernet": "| {ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": "󰤯",
+        "tooltip-format-wifi": "{essid}  ({signalStrength}%)  ",
+	"on-click": "exec kitty nmtui"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["  ", "  ", "  "]
+        },
+        "on-click": "pavucontrol"
+    },
+    "bluetooth": {
+		"icon-size":16,
+		"format": "<span size='large'></span>",
+		"format-disabled": "  ", // an empty format will hide the module
+		"format-connected": "  ",
+		"tooltip-format": "{controller_alias}\t{controller_address}",
+		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+		"on-click": "exec kitty bluetuith"
+	},
+}
